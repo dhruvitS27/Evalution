@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Profile Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #8b5cf6, #c084fc);
+        min-height: 100vh;
+      }
+
+      .card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-title {
+        font-weight: 600;
+        color: #4b0082;
+      }
+
+      .btn-primary {
+        background-color: #4b0082;
+        border-color: #4b0082;
+      }
+
+      .btn-primary:hover {
+        background-color: #5c0dab;
+      }
+
+      .avatar-large {
+        width: 80px;
+        height: 80px;
+        background-color: #0d6efd;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        font-weight: bold;
+      }
+      .edit-icon {
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 20px;
+        color: #0d6efd;
+      }
+      .preview-value {
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body class="bg-light p-4">
+    <div class="container bg-white p-4 rounded shadow">
+      <div class="row align-items-center">
+        <div class="col-md-3 text-center">
+          <div class="avatar-large" id="profileAvatar">--</div>
+          <div class="edit-icon" id="editIcon" title="Edit Profile">✏</div>
+        </div>
+
+        <div class="col-md-9">
+          <h4>Name: <span id="profileName"></span></h4>
+          <h5>Email: <span id="profileEmail"></span></h5>
+        </div>
+      </div>
+
+      <div id="previewSection" class="mt-4" style="display: none">
+        <h5>Profile Details</h5>
+        <ul class="list-group">
+          <li class="list-group-item">
+            Name: <span class="preview-value" id="p_name"></span>
+          </li>
+          <li class="list-group-item">
+            College: <span class="preview-value" id="p_college"></span>
+          </li>
+          <li class="list-group-item">
+            Phone: <span class="preview-value" id="p_phone"></span>
+          </li>
+          <li class="list-group-item">
+            Address: <span class="preview-value" id="p_address"></span>
+          </li>
+          <li class="list-group-item">
+            Gender: <span class="preview-value" id="p_gender"></span>
+          </li>
+          <li class="list-group-item">
+            Email: <span class="preview-value" id="p_email"></span>
+          </li>
+          <li class="list-group-item">
+            Hobbies: <span class="preview-value" id="p_hobbies"></span>
+          </li>
+          <li class="list-group-item">
+            Branch: <span class="preview-value" id="p_branch"></span>
+          </li>
+          <li class="list-group-item">
+            DOB: <span class="preview-value" id="p_dob"></span>
+          </li>
+          <li class="list-group-item">
+            Age: <span class="preview-value" id="p_age"></span>
+          </li>
+          <li class="list-group-item">
+            Joining Year: <span class="preview-value" id="p_joining"></span>
+          </li>
+          <li class="list-group-item">
+            Passing Year: <span class="preview-value" id="p_passing"></span>
+          </li>
+        </ul>
+      </div>
+
+      <form class="mt-4" id="editForm" style="display: none">
+        <h5>Edit Your Profile</h5>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label>Name</label
+            ><input type="text" class="form-control" name="name" required />
+          </div>
+          <div class="col-md-6">
+            <label>College</label
+            ><input type="text" class="form-control" name="college" />
+          </div>
+          <div class="col-md-6">
+            <label>Phone No</label
+            ><input type="text" class="form-control" name="phone" />
+          </div>
+          <div class="col-md-6">
+            <label>Address</label
+            ><input type="text" class="form-control" name="address" />
+          </div>
+          <div class="col-md-6">
+            <label>Gender</label>
+            <select class="form-select" name="gender">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label>Email ID</label
+            ><input type="email" class="form-control" name="email" />
+          </div>
+          <div class="col-md-6">
+            <label>Hobbies</label
+            ><input type="text" class="form-control" name="hobbies" />
+          </div>
+          <div class="col-md-6">
+            <label>Branch</label
+            ><input type="text" class="form-control" name="branch" />
+          </div>
+          <div class="col-md-6">
+            <label>Date of Birth</label>
+            <input
+              type="date"
+              class="form-control"
+              name="dob"
+              onchange="calculateAge(this.value)"
+            />
+          </div>
+          <div class="col-md-6">
+            <label>Age</label>
+            <input type="text" class="form-control" name="age" readonly />
+          </div>
+          <div class="col-md-6">
+            <label>College Joining Year</label
+            ><input type="number" class="form-control" name="joining" />
+          </div>
+          <div class="col-md-6">
+            <label>Passing Year</label
+            ><input type="number" class="form-control" name="passing" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Save</button>
+      </form>
+    </div>
+
+    <script>
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const name = user.name || "";
+      const email = user.email || "";
+      const initials = name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase();
+
+      document.getElementById("profileName").textContent = name;
+      document.getElementById("profileEmail").textContent = email;
+      document.getElementById("profileAvatar").textContent = initials;
+
+      document.getElementById("editIcon").addEventListener("click", () => {
+        const form = document.getElementById("editForm");
+        form.style.display = form.style.display === "none" ? "block" : "none";
+        document.getElementById("previewSection").style.display = "none";
+      });
+
+      function calculateAge(dobStr) {
+        const dob = new Date(dobStr);
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+          age--;
+        }
+        document.querySelector('[name="age"]').value = age;
+      }
+
+      document
+        .getElementById("editForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const formData = new FormData(this);
+          const userData = {};
+          formData.forEach((value, key) => {
+            userData[key] = value;
+            localStorage.setItem(key, value);
+          });
+          for (const key in userData) {
+            const el = document.getElementById("p_" + key);
+            if (el) el.textContent = userData[key];
+          }
+          this.style.display = "none";
+          document.getElementById("previewSection").style.display = "block";
+        });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const keys = [
+          "name",
+          "college",
+          "phone",
+          "address",
+          "gender",
+          "email",
+          "hobbies",
+          "branch",
+          "dob",
+          "age",
+          "joining",
+          "passing",
+        ];
+        let hasData = false;
+        keys.forEach((key) => {
+          const value = localStorage.getItem(key);
+          if (value) {
+            hasData = true;
+            const el = document.getElementById("p_" + key);
+            if (el) el.textContent = value;
+          }
+        });
+        if (hasData) {
+          document.getElementById("previewSection").style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
