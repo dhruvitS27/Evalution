@@ -68,22 +68,14 @@
           <li class="list-group-item"><strong>Joining Date:</strong> <span id="user-joining"></span></li>
           <li class="list-group-item"><strong>Passing Date:</strong> <span id="user-passing"></span></li>
         </ul>
+
         <button class="btn btn-primary w-100 edit-btn" onclick="toggleEdit()">Edit Profile</button>
 
         <form class="form-section mt-4" id="edit-form">
           <div class="row g-3">
-            <div class="col-md-6">
-              <label>Name</label>
-              <input type="text" class="form-control" id="edit-name" />
-            </div>
-            <div class="col-md-6">
-              <label>Branch</label>
-              <input type="text" class="form-control" id="edit-branch" />
-            </div>
-            <div class="col-md-6">
-              <label>Email</label>
-              <input type="email" class="form-control" id="edit-email" />
-            </div>
+            <div class="col-md-6"><label>Name</label><input type="text" class="form-control" id="edit-name" /></div>
+            <div class="col-md-6"><label>Branch</label><input type="text" class="form-control" id="edit-branch" /></div>
+            <div class="col-md-6"><label>Email</label><input type="email" class="form-control" id="edit-email" /></div>
             <div class="col-md-6">
               <label>Gender</label>
               <select class="form-select" id="edit-gender">
@@ -92,42 +84,15 @@
                 <option>Other</option>
               </select>
             </div>
-            <div class="col-md-6">
-              <label>Mobile</label>
-              <input type="text" class="form-control" id="edit-mobile" />
-            </div>
-            <div class="col-md-6">
-              <label>Address</label>
-              <input type="text" class="form-control" id="edit-address" />
-            </div>
-            <div class="col-md-6">
-              <label>City</label>
-              <input type="text" class="form-control" id="edit-city" />
-            </div>
-            <div class="col-md-6">
-              <label>State</label>
-              <input type="text" class="form-control" id="edit-state" />
-            </div>
-            <div class="col-md-6">
-              <label>Hobby</label>
-              <input type="text" class="form-control" id="edit-hobby" />
-            </div>
-            <div class="col-md-6">
-              <label>Birth Date</label>
-              <input type="date" class="form-control" id="edit-birth" />
-            </div>
-            <div class="col-md-6">
-              <label>Age</label>
-              <input type="text" class="form-control" id="edit-age" readonly />
-            </div>
-            <div class="col-md-6">
-              <label>Joining Date</label>
-              <input type="text" class="form-control" id="edit-joining" />
-            </div>
-            <div class="col-md-6">
-              <label>Passing Date</label>
-              <input type="text" class="form-control" id="edit-passing" />
-            </div>
+            <div class="col-md-6"><label>Mobile</label><input type="text" class="form-control" id="edit-mobile" /></div>
+            <div class="col-md-6"><label>Address</label><input type="text" class="form-control" id="edit-address" /></div>
+            <div class="col-md-6"><label>City</label><input type="text" class="form-control" id="edit-city" /></div>
+            <div class="col-md-6"><label>State</label><input type="text" class="form-control" id="edit-state" /></div>
+            <div class="col-md-6"><label>Hobby</label><input type="text" class="form-control" id="edit-hobby" /></div>
+            <div class="col-md-6"><label>Birth Date</label><input type="date" class="form-control" id="edit-birth" /></div>
+            <div class="col-md-6"><label>Age</label><input type="text" class="form-control" id="edit-age" readonly /></div>
+            <div class="col-md-6"><label>Joining Date</label><input type="text" class="form-control" id="edit-joining" /></div>
+            <div class="col-md-6"><label>Passing Date</label><input type="text" class="form-control" id="edit-passing" /></div>
           </div>
           <button type="submit" class="btn btn-success mt-3 w-100">Save</button>
         </form>
@@ -138,16 +103,10 @@
   <script>
     const user = JSON.parse(localStorage.getItem("selectedUser"));
 
-    const fields = [
-      "name", "branch", "email", "gender", "mobile No", "address",
-      "city", "state", "hobby", "Birth-Date", "age", "clg-joining", "passing-Date"
-    ];
-
     if (user) {
       document.getElementById("user-img").src = user.image || "https://via.placeholder.com/600x300";
       document.getElementById("user-name").textContent = user.name;
       document.getElementById("user-branch").textContent = user.branch;
-
       document.getElementById("user-email").textContent = user.email;
       document.getElementById("user-gender").textContent = user.gender;
       document.getElementById("user-mobile").textContent = user["mobile No"];
@@ -160,7 +119,6 @@
       document.getElementById("user-joining").textContent = user["clg-joining"];
       document.getElementById("user-passing").textContent = user["passing-Date"];
 
-      // Fill form
       document.getElementById("edit-name").value = user.name;
       document.getElementById("edit-branch").value = user.branch;
       document.getElementById("edit-email").value = user.email;
@@ -179,8 +137,9 @@
     function toggleEdit() {
       const form = document.getElementById("edit-form");
       const details = document.getElementById("user-details");
-      form.style.display = form.style.display === "none" ? "block" : "none";
-      details.style.display = form.style.display === "none" ? "block" : "none";
+      const isHidden = form.style.display === "none";
+      form.style.display = isHidden ? "block" : "none";
+      details.style.display = isHidden ? "none" : "block";
     }
 
     document.getElementById("edit-birth").addEventListener("change", function () {
